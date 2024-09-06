@@ -1,23 +1,24 @@
 import Login from "./Login";
 import Browse from "./Browse";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addItem, removeItem } from "../utils/authSlice";
 
-import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+const Body = () => {
 
-const Body =()=>{
+  
 
-    return(
-
+  return (
     <Router>
-
-        <Routes>
-            <Route path='/' element={<Login/>}/>
-            <Route path='/browse' element={<Browse/>}/>
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/browse" element={<Browse />} />
+      </Routes>
     </Router>
-
-    )
-
-   
-}
+  );
+};
 
 export default Body;
