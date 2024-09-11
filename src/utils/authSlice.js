@@ -3,14 +3,26 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const authSlice=createSlice({
     name: 'auth',
-    initialState:null,
+    initialState:{
+        uid:null,
+        email:null,
+        displayName: null,
+        photoUrl: null,
+    },
     reducers:{
 
         addItem:(state,action) => {
-            return action.payload
+            state.uid=action.payload.uid;
+            state.email=action.payload.email;
+            state.displayName=action.payload.displayName;
+            state.photoUrl=action.payload.photoUrl;
+
         },
-        removeItem:(state,action) => {
-            return null
+        removeItem:(state) => {
+           state.uid=null;
+           state.email=null;
+           state.displayName=null;
+           state.photoUrl=null;
         }
 
 

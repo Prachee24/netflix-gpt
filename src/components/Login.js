@@ -11,6 +11,7 @@ import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addItem, removeItem } from "../utils/authSlice";
+import { BG_URL } from "../utils/constants";
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -48,7 +49,7 @@ const Login = () => {
       password.current.value
     );
     setErrorMessage(message);
-    console.log(message);
+   
     if (message) return;
 
     //signin and signup logic
@@ -64,7 +65,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+         
 
           ////////update username
           updateProfile(user, {
@@ -72,6 +73,9 @@ const Login = () => {
             photoURL: "https://media.licdn.com/dms/image/D5603AQFPzJpa6r2kzQ/profile-displayphoto-shrink_100_100/0/1698045729085?e=1727913600&v=beta&t=pYfoRTRy5uppQbHEtdUQ2-_FaOQHLNXcj5Aly2_MJZw",
           })
             .then(() => {
+              const { uid, email, displayName,photoUrl} = auth.currentUser;
+
+              dispatch(addItem({ uid: uid, email: email, displayName: displayName,photoUrl:photoUrl }));
               // Profile updated!
               navigate('/browse')
               // ...
@@ -97,7 +101,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+       
           // ...
         })
         .catch((error) => {
@@ -111,7 +115,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/655a9668-b002-4262-8afb-cf71e45d1956/5ff265b6-3037-44b2-b071-e81750b21783/IN-en-20240715-POP_SIGNUP_TWO_WEEKS-perspective_WEB_c6d6616f-4478-4ac2-bdac-f54b444771dd_large.jpg" />
+        <img src={BG_URL} alt="bakground"/>
       </div>
 
       <form
